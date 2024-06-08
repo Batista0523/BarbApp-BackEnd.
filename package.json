@@ -1,0 +1,23 @@
+{
+  "name": "barbapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "db_schema": "psql -U postgres -f db/schema.sql",
+    "db_seed": "psql -U postgres -f db/seed.sql"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0",
+    "pg-promise": "^11.6.0"
+  }
+}
