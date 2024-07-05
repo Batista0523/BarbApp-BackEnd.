@@ -5,9 +5,34 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  authenticateUser
 } = require("../Queries/users.js");
 
 const user = express.Router();
+
+
+/**
+ * Authenticates a user and logs them in.
+ * @route POST /user/login
+ * @param {string} req.body.username - The username of the user.
+ * @param {string} req.body.password - The password of the user.
+ * @returns {Object} The authenticated user object without the password.
+ * @throws {Error} If the username or password is incorrect, or if there's an internal server error.
+ */
+user.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const authenticatedUser = await authenticateUser(username, password);
+    res.status(200).json({ success: true, payload: authenticatedUser });
+  } catch (error) {
+    console.error("Error logging in:", error);
+    res.status(401).json({ success: false, message: "Invalid username or password" });
+  }
+});
+
+
+
 
 /**
  * Retrieves all users.

@@ -106,6 +106,16 @@ const updateUser = async (id, user) => {
 
 const createUser = async (user) => {
   try {
+    // Check if username or email already exists
+    const existingUser = await db.oneOrNone(
+      "SELECT * FROM users WHERE username = $1 OR email = $2",
+      [user.username, user.email]
+    );
+
+    if (existingUser) {
+      throw new Error("Name, username, or email is already registered. Please use another email or log in with your account.");
+    }
+
     // Hash the password
     const hashedPassword = await bcrypt.hash(user.password, 10);
 
@@ -128,6 +138,28 @@ const createUser = async (user) => {
     throw error;
   }
 };
+const authenticateUser = async (username, password) => {
+  try {
+    const user = await db.oneOrNone("SELECT * FROM users WHERE username = $1", [username]);
+
+    if (!user) {
+      throw new Error("Invalid username or password");
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      throw new Error("Invalid username or password");
+    }
+
+    delete user.password;
+
+    return user;
+  } catch (error) {
+    console.error("Error during user authentication", error);
+    throw error;
+  }
+};
 
 module.exports = {
   getAllUsers,
@@ -135,4 +167,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  authenticateUser
 };
