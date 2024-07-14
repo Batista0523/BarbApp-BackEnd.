@@ -6,6 +6,7 @@ const {
   deleteReview,
   updateReviews,
   createReview,
+  getReviewsByBarberId
 } = require("../Queries/review.js");
 
 const reviews = express.Router();
@@ -118,4 +119,27 @@ reviews.post("/", async (req, res) => {
     res.status(500).json({ success: false, error: "Internal Error" });
   }
 });
+
+/**
+ * Retrieves all reviews for a specific barber by ID.
+ * @route GET /reviews/barber/:barberId
+ * @param {number} barberId - The ID of the barber to retrieve reviews for.
+ * @returns {Array} An array of review objects.
+ * @throws {Error} If there's an error retrieving reviews.
+ */
+reviews.get("/barber/:barberId", async (req, res) => {
+  try {
+    const { barberId } = req.params;
+    const reviews = await getReviewsByBarberId(barberId);
+    if (reviews.length > 0) {
+      res.status(200).json({ success: true, payload: reviews });
+    } else {
+      res.status(404).json({ success: false, error: "No reviews found" });
+    }
+  } catch (error) {
+    console.error("Error fetching reviews for barber", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
+  }
+});
+
 module.exports = reviews;
