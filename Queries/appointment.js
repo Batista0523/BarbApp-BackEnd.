@@ -15,6 +15,8 @@ const getAllAppointments = async () => {
   }
 };
 
+
+
 /**
  * Retrieves a specific appointment from the database based on its ID.
  * @param {number} id - The ID of the appointment to retrieve.
