@@ -1,18 +1,16 @@
 -- Connect to database
 \c barbapp;
 
--- Drop the tables if they exist
-DROP TABLE IF EXISTS appointments;
-DROP TABLE IF EXISTS reviews;
-DROP TABLE IF EXISTS services;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS appointments CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS services CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 -- Drop the indexes if they exist
 DROP INDEX IF EXISTS idx_user_role;
 DROP INDEX IF EXISTS idx_appointment_date;
 DROP INDEX IF EXISTS idx_appointment_time;
 DROP INDEX IF EXISTS idx_review_rating;
-
 
 -- Users table to store customer and barber profiles
 CREATE TABLE users (
@@ -27,7 +25,6 @@ CREATE TABLE users (
     address TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 -- Index on role column
 CREATE INDEX idx_user_role ON users(role);
 
