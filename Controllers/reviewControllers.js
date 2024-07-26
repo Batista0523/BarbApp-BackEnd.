@@ -6,7 +6,7 @@ const {
   deleteReview,
   updateReviews,
   createReview,
-  getReviewsByBarberId
+  // getReviewsForBarber
 } = require("../Queries/review.js");
 
 const reviews = express.Router();
@@ -30,7 +30,6 @@ reviews.get("/", async (req, res) => {
     res.status(500).json({ success: false, error: "Internal server error" });
   }
 });
-
 /**
  * Retrieves a specific review by ID.
  * @route GET /reviews/:id
@@ -45,10 +44,11 @@ reviews.get("/:id", async (req, res) => {
     if (oneReview) {
       res.status(200).json(oneReview);
     } else {
-      res.status(404).json("error fetching one review", error);
+      res.status(404).json({ success: false, error: "Review not found" });
     }
   } catch (error) {
-    res.status(500).json("error internal", error);
+    console.error("Error retrieving review", error);
+    res.status(500).json({ success: false, error: "Internal server error" });
   }
 });
 
@@ -127,19 +127,16 @@ reviews.post("/", async (req, res) => {
  * @returns {Array} An array of review objects.
  * @throws {Error} If there's an error retrieving reviews.
  */
-reviews.get("/barber/:barberId", async (req, res) => {
-  try {
-    const { barberId } = req.params;
-    const reviews = await getReviewsByBarberId(barberId);
-    if (reviews.length > 0) {
-      res.status(200).json({ success: true, payload: reviews });
-    } else {
-      res.status(404).json({ success: false, error: "No reviews found" });
-    }
-  } catch (error) {
-    console.error("Error fetching reviews for barber", error);
-    res.status(500).json({ success: false, error: "Internal server error" });
-  }
-});
+// reviewControllers.js
+// reviews.get("/barber/:barberId", async (req, res) => {
+//   const { barberId } = req.params;
+//   try {
+//     const reviews = await getReviewsForBarber(barberId);
+//     res.json({ success: true, payload: reviews });
+//   } catch (err) {
+//     console.error('Error retrieving reviews for barber', err);
+//     res.status(500).json({ success: false, message: 'Failed to fetch reviews.' });
+//   }
+// });
 
 module.exports = reviews;

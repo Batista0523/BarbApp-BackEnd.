@@ -100,21 +100,20 @@ const createReview = async (review) => {
  * @returns {Promise<Array>} An array of objects representing all reviews for the barber.
  * @throws {Error} If an error occurs during the retrieval of reviews.
  */
-const getReviewsByBarberId = async (barberId) => {
-  try {
-    const reviews = await db.any("SELECT * FROM reviews WHERE barber_id = $1", [barberId]);
-    return reviews;
-  } catch (error) {
-    console.error("Error retrieving reviews for barber", error);
-    throw error;
-  }
-};
-
+// const getReviewsForBarber = async (barberId) => {
+//   try {
+//     const reviews = await db.any("SELECT * FROM reviews WHERE barber_id = $1", [barberId]);
+//     return reviews;
+//   } catch (error) {
+//     console.error("Error retrieving reviews for barber", error);
+//     throw error;
+//   }
+// };
 module.exports = {
   getAllReviews,
   getOneReview,
   deleteReview,
   updateReviews,
   createReview,
-  getReviewsByBarberId
+  // getReviewsForBarber
 };
