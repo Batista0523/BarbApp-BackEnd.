@@ -10,7 +10,17 @@ const getAllSchedule = async () => {
   }
 };
 
-
+const deleteSchedule = async (id) => {
+  try {
+    const deletedSchedule = await db.one(
+      "DELETE FROM barber_schedules WHERE id=$1",
+      [id]
+    );
+    return deletedSchedule;
+  } catch (err) {
+    console.error("internal error in delete", err);
+  }
+};
 
 const getOneSchedule = async (id) => {
   try {
@@ -25,8 +35,8 @@ const getOneSchedule = async (id) => {
   }
 };
 
-
 module.exports = {
-   getAllSchedule,
-   getOneSchedule
-  };
+  getAllSchedule,
+  getOneSchedule,
+  deleteSchedule
+};
