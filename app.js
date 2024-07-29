@@ -13,7 +13,7 @@ app.use("/appointments", appointmentsControllers);
 app.use("/services", serviceController);
 app.use("/reviews", reviewControllers);
 app.use("/users", userControllers);
-app.use("/barber_schedules", scheduleController);
+app.use("/schedules", scheduleController);
 app.get("/", (req, res) => {
   res.send("Welcome to Barbapp");
 });

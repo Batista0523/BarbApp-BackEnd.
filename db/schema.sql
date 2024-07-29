@@ -63,7 +63,7 @@ CREATE INDEX idx_appointment_time ON appointments(appointment_time);
 CREATE TABLE barber_schedules (
     id SERIAL PRIMARY KEY,
     barber_id INT REFERENCES users(id) ON DELETE CASCADE,
-    day_of_week VARCHAR(10) CHECK(day_of_week IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')) NOT NULL,
+    day_of_week VARCHAR(50) CHECK(day_of_week IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')) NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

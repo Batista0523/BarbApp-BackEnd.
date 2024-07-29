@@ -13,7 +13,7 @@ const getAllSchedule = async () => {
 const deleteSchedule = async (id) => {
   try {
     const deletedSchedule = await db.one(
-      "DELETE FROM barber_schedules WHERE id=$1",
+      "DELETE FROM barber_schedules WHERE id=$1 RETURNING *",
       [id]
     );
     return deletedSchedule;
@@ -39,8 +39,8 @@ const updateSchedule = async (id, schedule) => {
   try {
     const { barber_id, day_of_week, start_time, end_time } = schedule;
     const updatedSchedule = await db.one(
-      "UPDATE barber_schedules SET barber_id=$1,day_of_week=$2,start_time=$3,end_time=$4 WHERE id=$5 RETURNING *"[
-        (barber_id, day_of_week, start_time, end_time, id)
+      "UPDATE barber_schedules SET barber_id=$1,day_of_week=$2,start_time=$3,end_time=$4 WHERE id=$5 RETURNING *",[
+        barber_id, day_of_week, start_time, end_time, id
       ]
     );
     return updatedSchedule;
