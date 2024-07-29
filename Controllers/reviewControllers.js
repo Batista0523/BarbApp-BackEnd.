@@ -122,13 +122,5 @@ reviews.post("/", async (req, res) => {
   }
 });
 
-/**
- * Retrieves all reviews for a specific barber by ID.
- * @route GET /reviews/barber/:barberId
- * @param {number} barberId - The ID of the barber to retrieve reviews for.
- * @returns {Array} An array of review objects.
- * @throws {Error} If there's an error retrieving reviews.
- */
-
 
 module.exports = reviews;
