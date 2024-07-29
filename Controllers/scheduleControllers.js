@@ -1,6 +1,12 @@
 const express = require("express");
 
-const { getAllSchedule, getOneSchedule } = require("../Queries/schedule.js");
+const {
+  getAllSchedule,
+  getOneSchedule,
+  deleteSchedule,
+  createSchedule,
+  updateSchedule,
+} = require("../Queries/schedule.js");
 
 const schedule = express.Router();
 
@@ -32,5 +38,23 @@ schedule.get("/:id", async (req, res) => {
   }
 });
 
+schedule.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedSchedule = await deleteSchedule(id);
+    if (deletedSchedule) {
+      res.status(200).json({ success: true, payload: deletedSchedule });
+    } else {
+      res
+        .status(404)
+        .json({ success: false, error: "Error deleting schedule" });
+    }
+  } catch (error) {
+    console.error("Internal Error deleting", error);
+    res.status(500).json({ success: false, error: "Internal server Error" });
+  }
+});
 
-module.exports= schedule
+
+s
+module.exports = schedule;

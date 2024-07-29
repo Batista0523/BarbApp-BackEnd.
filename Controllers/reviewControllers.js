@@ -129,16 +129,6 @@ reviews.post("/", async (req, res) => {
  * @returns {Array} An array of review objects.
  * @throws {Error} If there's an error retrieving reviews.
  */
-// reviewControllers.js
-// reviews.get("/barber/:barberId", async (req, res) => {
-//   const { barberId } = req.params;
-//   try {
-//     const reviews = await getReviewsForBarber(barberId);
-//     res.json({ success: true, payload: reviews });
-//   } catch (err) {
-//     console.error('Error retrieving reviews for barber', err);
-//     res.status(500).json({ success: false, message: 'Failed to fetch reviews.' });
-//   }
-// });
+
 
 module.exports = reviews;
