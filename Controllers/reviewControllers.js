@@ -54,13 +54,7 @@ reviews.get("/:id", async (req, res) => {
 
 
 
-/**
- * Deletes a review by ID.
- * @route DELETE /reviews/:id
- * @param {number} id - The ID of the review to delete.
- * @returns {Object} The deleted review object.
- * @throws {Error} If the specified review is not found or if there's an error deleting the review.
- */
+
 reviews.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
