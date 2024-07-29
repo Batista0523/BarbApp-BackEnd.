@@ -75,6 +75,7 @@ const updateReviews = async (id, review) => {
   }
 };
 
+
 /**
  * Creates a new review in the database.
  * @param {Object} review - An object containing the information of the new review.
