@@ -45,7 +45,7 @@ const getOneAppointment = async (id) => {
 const createAppointments = async (appointment) => {
   try {
     const createdAppointment = await db.one(
-      "INSERT INTO appointments (customer_id, barber_id, service_id, appointment_date, appointment_time, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO appointments (customer_id, barber_id, service_id, appointment_date, appointment_time, status) VALUES ($1, $2, $3, $4, $5, COALESCE($6, 'scheduled')) RETURNING *",
       [
         appointment.customer_id,
         appointment.barber_id,
@@ -62,6 +62,18 @@ const createAppointments = async (appointment) => {
   }
 };
 
+const updateAppointmentStatus = async (id, status) => {
+  try {
+    const updatedAppointment = await db.one(
+      "UPDATE appointments SET status=$1 WHERE id=$2 RETURNING *",
+      [status, id]
+    );
+    return updatedAppointment;
+  } catch (error) {
+    console.error("Error updating appointment status:", error);
+    throw error;
+  }
+};
 /**
  * Deletes a specific appointment from the database based on its ID.
  * @param {number} id - The ID of the appointment to delete.
@@ -123,4 +135,5 @@ module.exports = {
   createAppointments,
   deleteAppointment,
   updateAppointment,
+  updateAppointmentStatus
 };
