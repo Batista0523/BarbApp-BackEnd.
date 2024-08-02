@@ -6,7 +6,6 @@ const {
   deleteReview,
   updateReviews,
   createReview,
-  // getReviewsForBarber
 } = require("../Queries/review.js");
 
 const reviews = express.Router();

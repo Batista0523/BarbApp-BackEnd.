@@ -4,9 +4,9 @@ const {
   getOneAppointment,
   createAppointments,
   deleteAppointment,
-  updateAppointment,
   updateAppointmentStatus,
 } = require("../Queries/appointment.js");
+
 
 const appointments = express.Router();
 
